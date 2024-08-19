@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: restaurant-service
+  datasource:
+    url: jdbc:postgresql://localhost:5433/restaurantdb
+    username: root
+    password: root
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+
