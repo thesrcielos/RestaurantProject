@@ -16,12 +16,12 @@ import java.util.List;
 public class ProductEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
-    private String description;
-    private BigDecimal price;
-    private String imageURL;
-    private boolean isCombo;
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ComboProductEntity> combosWithProduct;
+    protected Long id;
+    protected String name;
+    protected String description;
+    protected BigDecimal price;
+    protected String imageURL;
+    protected boolean isCombo;
+    @OneToMany(mappedBy = "combo")
+    private List<ComboProductEntity> comboProducts;
 }

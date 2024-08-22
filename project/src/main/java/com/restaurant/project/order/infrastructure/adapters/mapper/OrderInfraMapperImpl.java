@@ -25,11 +25,13 @@ public class OrderInfraMapperImpl implements OrderInfraMapper {
     private final ClientInfraMapper clientInfraMapper;
     @Override
     public OrderEntity orderToEntity(Order order) {
-        List<OrderProductEntity> orderProductEntities = order.getOrderProducts().stream()
-                .map(this::orderProductToEntity)
-                .toList();
         ClientEntity client = clientInfraMapper.toClientEntity(order.getClient());
-        return new OrderEntity(null,client,order.getDate(),orderProductEntities,order.getTotal());
+        OrderEntity orderEntity = new OrderEntity(null,client,order.getDate(),null,order.getTotal());
+        List<OrderProductEntity> orderProductEntities = order.getOrderProducts().stream()
+                .map(orderProduct -> orderProductToEntity(orderProduct,orderEntity))
+                .toList();
+        orderEntity.setOrderProducts(orderProductEntities);
+        return orderEntity;
     }
 
 
@@ -49,8 +51,8 @@ public class OrderInfraMapperImpl implements OrderInfraMapper {
     }
 
     @Override
-    public OrderProductEntity orderProductToEntity(OrderProduct orderProduct) {
+    public OrderProductEntity orderProductToEntity(OrderProduct orderProduct, OrderEntity orderEntity) {
         ProductEntity productEntity = productMapper.productToEntity(orderProduct.getProduct());
-        return new OrderProductEntity(null,productEntity,null, orderProduct.getQuantity());
+        return new OrderProductEntity(null,productEntity,orderEntity, orderProduct.getQuantity());
     }
 }

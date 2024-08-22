@@ -1,5 +1,7 @@
 package com.restaurant.project.product.application.usecases;
 
+import com.restaurant.project.product.application.dto.ComboRequest;
+import com.restaurant.project.product.application.dto.ComboResponse;
 import com.restaurant.project.product.application.dto.ProductRequest;
 import com.restaurant.project.product.application.dto.ProductResponse;
 
@@ -11,4 +13,6 @@ public interface ProductService {
     List<ProductResponse> getAllProducts();
     void deleteProductById(Long id);
     ProductResponse save(ProductRequest request);
+    ComboResponse save(ComboRequest request);
+
 }

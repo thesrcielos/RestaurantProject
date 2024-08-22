@@ -14,12 +14,7 @@ public class JpaOrderProductAdapter implements OrderProductPersistencePort {
 
     private final OrderProductRepository orderProductRepository;
     private final OrderInfraMapper orderMapper;
-    @Override
-    public OrderProduct save(OrderProduct orderProduct) {
-        OrderProductEntity entity = orderMapper.orderProductToEntity(orderProduct);
-        orderProductRepository.save(entity);
-        return orderMapper.entityToOrderProduct(entity);
-    }
+
 
     @Override
     public OrderProduct update(OrderProduct orderProduct) {

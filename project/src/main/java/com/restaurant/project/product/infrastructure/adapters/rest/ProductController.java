@@ -1,5 +1,7 @@
 package com.restaurant.project.product.infrastructure.adapters.rest;
 
+import com.restaurant.project.product.application.dto.ComboRequest;
+import com.restaurant.project.product.application.dto.ComboResponse;
 import com.restaurant.project.product.application.dto.ProductRequest;
 import com.restaurant.project.product.application.dto.ProductResponse;
 import com.restaurant.project.product.application.usecases.ProductService;
@@ -22,6 +24,11 @@ public class ProductController {
         return productService.save(request);
     }
 
+    @PostMapping("/combo/create")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ComboResponse createCombo(@RequestBody @Valid ComboRequest comboRequest){
+        return productService.save(comboRequest);
+    }
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ProductResponse getProductById(@PathVariable Long id){

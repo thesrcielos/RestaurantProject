@@ -9,9 +9,9 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class Combo extends Product {
-    public Combo(Long id, String name, String description, BigDecimal price, String imageURL, List<Product> productsInCombo){
+    public Combo(Long id, String name, String description, BigDecimal price, String imageURL, List<ComboProduct> productsInCombo){
         super(id,name,description,price,imageURL,true);
         this.productsInCombo = productsInCombo;
     }
-    private List<Product> productsInCombo;
+    private List<ComboProduct> productsInCombo;
 }
