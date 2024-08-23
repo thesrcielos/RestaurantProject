@@ -1,5 +1,6 @@
 package com.restaurant.project.client.infrastructure.adapters;
 
+import com.restaurant.project.client.domain.exception.ClientException;
 import com.restaurant.project.client.domain.model.Client;
 import com.restaurant.project.client.domain.ports.ClientPersistencePort;
 import com.restaurant.project.client.infrastructure.adapters.entity.ClientEntity;
@@ -26,7 +27,7 @@ public class JpaPersistenceClientAdapter implements ClientPersistencePort {
     @Override
     public Client update(Client client) {
         Long id = client.getId();
-        ClientEntity clientEntity = clientRepository.findById(id).orElseThrow(()-> new RuntimeException("User not found"));
+        ClientEntity clientEntity = clientRepository.findById(id).orElseThrow(()-> new ClientException("User with id "+id+" not found",400));
         clientEntity.setEmail(client.getEmail());
         clientEntity.setName(client.getName());
         clientEntity.setPhoneNumber(client.getPhoneNumber());
@@ -41,13 +42,13 @@ public class JpaPersistenceClientAdapter implements ClientPersistencePort {
 
     @Override
     public Client getById(Long id) {
-        ClientEntity clientEntity = clientRepository.findById(id).orElseThrow(()-> new RuntimeException("User not found"));
+        ClientEntity clientEntity = clientRepository.findById(id).orElseThrow(()-> new ClientException("User with id "+id+" not found",400));
         return clientMapper.toClient(clientEntity);
     }
 
     @Override
     public Client getByEmail(String email) {
-        ClientEntity clientEntity = clientRepository.findByEmail(email).orElseThrow(()->new RuntimeException("User not found"));
+        ClientEntity clientEntity = clientRepository.findByEmail(email).orElseThrow(()->new ClientException("User with email "+ email +" not found.", 400));
         return clientMapper.toClient(clientEntity);
     }
 

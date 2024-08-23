@@ -1,5 +1,6 @@
 package com.restaurant.project.order.infrastructure.adapters;
 
+import com.restaurant.project.order.domain.exception.OrderException;
 import com.restaurant.project.order.domain.model.Order;
 import com.restaurant.project.order.domain.ports.OrderPersistencePort;
 import com.restaurant.project.order.infrastructure.adapters.entity.OrderEntity;
@@ -24,7 +25,7 @@ public class JpaOrderAdapter implements OrderPersistencePort {
 
     @Override
     public Order update(Order order) {
-        OrderEntity entity = orderRepository.findById(order.getId()).orElseThrow(()-> new RuntimeException("Order with id "+order.getId()+" not found"));
+        OrderEntity entity = orderRepository.findById(order.getId()).orElseThrow(()-> new OrderException("Order with id "+order.getId()+" not found", 400));
         orderRepository.save(entity);
         return orderMapper.entityToOrder(entity);
     }
@@ -36,7 +37,7 @@ public class JpaOrderAdapter implements OrderPersistencePort {
 
     @Override
     public Order getById(Long id) {
-        OrderEntity entity = orderRepository.findById(id).orElseThrow(()-> new RuntimeException("Order with id "+id+" not found"));
+        OrderEntity entity = orderRepository.findById(id).orElseThrow(()-> new OrderException("Order with id "+id+" not found",400));
         return orderMapper.entityToOrder(entity);
     }
 
